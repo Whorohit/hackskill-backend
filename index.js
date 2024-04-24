@@ -6,7 +6,9 @@ require('dotenv').config()
 const port = 5000
 app.use(cors());
 app.use(express.json())
-
+const LoginSchema = require('./Modals/Loginmodal');
+const PatientInfo = require('./Modals/Patientinfo');
+const loginroute=require('./Route/LoginAuth')
 const { ATLAS_URI } = process.env;
 
 if (!ATLAS_URI) {
@@ -26,3 +28,15 @@ const mongodbsend = () => {
         .catch(err => console.log(err));
 }
 mongodbsend();
+LoginSchema();
+PatientInfo();
+//  login route
+app.post('/auth/login',loginroute)
+app.post('/auth/signup',loginroute)
+app.post('/api/updateuser/:loginid',loginroute)
+app.get('/api/getinfo',loginroute)
+// user  opertion route
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)})
+// app.post('/api/signup',routes)
