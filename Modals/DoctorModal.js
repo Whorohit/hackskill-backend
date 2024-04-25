@@ -15,7 +15,7 @@ const DoctorInfoSchema = mongoose.Schema({
         
     },
     mobile: {
-        type: Number,
+        type: String,
         max: 10,
         min:10
     },

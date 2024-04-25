@@ -34,12 +34,12 @@ router.post('/api/addinfo', fetchuser, [
         
 
 
-        res.json({ saveinfo, success: true, message: "created successfully" })
+        return res.json({ saveinfo, success: true, message: "created successfully" })
 
 
     } catch (error) {
         console.error(error.message);
-        res.status(500).send({ errors: "Internal Server error", success: false });
+     return    res.status(500).send({ errors: "Internal Server error", success: false });
     }
 });
 
@@ -55,7 +55,7 @@ router.get('/api/patientinfo',fetchuser, async (req, res) => {
       res.json({ pateintinfolist: notes, success: true })
     } catch (error) {
       console.error(error.message);
-      res.status(500).send({ errors: "Internal Server error", success: false });
+     return  res.status(500).send({ errors: "Internal Server error", success: false });
     }
   
   }
@@ -97,12 +97,12 @@ router.get('/api/patientinfo',fetchuser, async (req, res) => {
         
 
         console.log(updatepatintinfo);
-        res.json({ updatepatintinfo, success: true, message: "updated successfully" })
+       return  res.json({ updatepatintinfo, success: true, message: "updated successfully" })
 
 
     } catch (error) {
         console.error(error.message);
-        res.status(500).send({ errors: "Internal Server error", success: false });
+       return   res.status(500).send({ errors: "Internal Server error", success: false });
     }
 });
 // router.post('/api/doctorlist',

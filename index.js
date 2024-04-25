@@ -11,6 +11,7 @@ const PatientInfo = require('./Modals/Patientinfo');
 const loginroute=require('./Route/LoginAuth')
 const patientroute=require('./Route/Patient')
 const Doctor=require("./Modals/DoctorModal")
+const Doctorroute=require("./Route/Doctor")
 const { ATLAS_URI } = process.env;
 
 if (!ATLAS_URI) {
@@ -39,6 +40,8 @@ app.get('/api/getinfo',loginroute)
 app.post('/api/addinfo',patientroute)
 app.get('/api/patientinfo',patientroute)
 app.post('/api/updateinfo/:id',patientroute)
+app.post('/api/createdoctor',Doctorroute)
+app.post('/api/doctorsinfo',Doctorroute)
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
 app.listen(port, () => {
