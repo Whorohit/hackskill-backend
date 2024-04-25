@@ -1,41 +1,41 @@
 const mongoose = require('mongoose')
 const PatientInfoSchema = mongoose.Schema({
-    id: {
+    Pat_id: {
         type: mongoose.Types.ObjectId,
         required: true,
         ref: 'LoginSchema'
     },
-    Disease:{
-        type:String
+    Disease: {
+        type: String
     },
-    Documentname:{
-        type:String
+    Documentname: {
+        type: String
     },
-    DocumentPhoto:{
-        type:Array
+    DocumentPhoto: {
+        type: Array
     },
-    IssuedDate:{
-        type:String,
+    IssuedDate: {
+        type: String,
         default: Date.now
     },
-    Hosptial:{
-     type:String
+    Hosptial: {
+        type: String
     },
-    lab:{
-        type:String
+    lab: {
+        type: String
     },
-    Remarks:{
-        type:String
+    Remarks: {
+        type: String
     }
 
 
 
-    
-    
-    
+
+
+
 })
-const  PatientInfo = mongoose.model('PatientInfo',PatientInfoSchema)
-module.exports =PatientInfo
+const PatientInfo = mongoose.model('PatientInfo', PatientInfoSchema)
+module.exports = PatientInfo
 
 
 

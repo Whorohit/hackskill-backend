@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 const { body, validationResult } = require('express-validator');
 router.post('/api/addinfo', fetchuser, [
     body('Disease', 'enter the  Disease name').isLength({ min: 2}),
-    body('Documentname', 'enter the ').isLength({ min: 3 }),
+    body('Documentname', 'enter the  Documentname').isLength({ min: 3 }),
     // body('IssuedDate', 'enter the firstname').isLength({ min: 10, max:10 }),
     body('Hosptial', ' enter the Hosptial name').isLength({ min: 3 }),
     body('Remarks', 'Enter vaild Remarks').isLength({ min: 0,  }),
@@ -27,7 +27,7 @@ router.post('/api/addinfo', fetchuser, [
         }
     
             const newPatient = new Patient({
-                Hosptial,Remarks,DocumentPhoto,Documentname,Disease,IssuedDate,id:req.user.id,
+                Hosptial,Remarks,DocumentPhoto,Documentname,Disease,IssuedDate,Pat_id:req.user.id,
                 lab
             })
             saveinfo = await newPatient.save();
@@ -48,7 +48,7 @@ router.get('/api/patientinfo',fetchuser, async (req, res) => {
       
   
       const notes = await Patient.find({
-        id: req.user.id, 
+        Pat_id: req.user.id, 
       }) 
       // const notes = await ledger.find({ user: req.user, })
   
@@ -60,5 +60,89 @@ router.get('/api/patientinfo',fetchuser, async (req, res) => {
   
   }
   )
+
+  router.post('/api/updateinfo/:id', fetchuser, [
+    body('Disease', 'enter the  Disease name').isLength({ min: 2}),
+    body('Documentname', 'enter the  Documentname').isLength({ min: 3 }),
+    body('Hosptial', ' enter the Hosptial name').isLength({ min: 3 }),
+    body('Remarks', 'Enter vaild Remarks').isLength({ min: 0,  }),
+   
+], async (req, res) => {
+    try {
+        
+        const {
+            Hosptial,Remarks,DocumentPhoto,Documentname,Disease,IssuedDate,
+                    lab  
+        } = req.body
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const errorMessages = errors.array().map(error => error.msg);
+            console.log(errorMessages);
+            return res.status(400).json({ errors: errorMessages, success: false });
+
+        }
+
+        const id= req.params.id
+        if(!id){
+            res.status(200).send({ errors: "Provide the vaild Id", success: false });
+        }        
+            let updatepatintinfo = await Patient.findOneAndUpdate({_id: id }, {
+                $set: {
+                    Hosptial,Remarks,DocumentPhoto,Documentname,Disease,IssuedDate,
+                    lab
+                }
+            }, { new: true });
+        
+        
+        
+
+        console.log(updatepatintinfo);
+        res.json({ updatepatintinfo, success: true, message: "updated successfully" })
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send({ errors: "Internal Server error", success: false });
+    }
+});
+// router.post('/api/doctorlist',
+// fetchuser, [
+//     body('Disease', 'enter the  Disease name').isLength({ min: 2}),
+//     body('Documentname', 'enter the  Documentname').isLength({ min: 3 }),
+//     body('Hosptial', ' enter the Hosptial name').isLength({ min: 3 }),
+//     body('Remarks', 'Enter vaild Remarks').isLength({ min: 0,  }),
+   
+// ], async (req, res) => {
+//     try {
+        
+//         const {
+//             Hosptial,Remarks,DocumentPhoto,Documentname,Disease,IssuedDate,
+//                     lab  
+//         } = req.body
+//         const errors = validationResult(req);
+//         if (!errors.isEmpty()) {
+//             const errorMessages = errors.array().map(error => error.msg);
+//             console.log(errorMessages);
+//             return res.status(400).json({ errors: errorMessages, success: false });
+
+//         }
+
+        
+        
+            
+        
+        
+        
+
+//         console.log(updatepatintinfo);
+//         res.json({ updatepatintinfo, success: true, message: "updated successfully" })
+
+
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).send({ errors: "Internal Server error", success: false });
+//     }
+// })
+
 
 module.exports = router

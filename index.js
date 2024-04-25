@@ -10,6 +10,7 @@ const LoginSchema = require('./Modals/Loginmodal');
 const PatientInfo = require('./Modals/Patientinfo');
 const loginroute=require('./Route/LoginAuth')
 const patientroute=require('./Route/Patient')
+const Doctor=require("./Modals/DoctorModal")
 const { ATLAS_URI } = process.env;
 
 if (!ATLAS_URI) {
@@ -28,6 +29,7 @@ mongoose.connect(ATLAS_URI, {
 .catch(err => console.error('MongoDB connection error:', err));
 LoginSchema();
 PatientInfo();
+Doctor();
 //  login route
 app.post('/auth/login',loginroute)
 app.post('/auth/signup',loginroute)
@@ -36,6 +38,7 @@ app.get('/api/getinfo',loginroute)
 // user  opertion route
 app.post('/api/addinfo',patientroute)
 app.get('/api/patientinfo',patientroute)
+app.post('/api/updateinfo/:id',patientroute)
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
 app.listen(port, () => {
