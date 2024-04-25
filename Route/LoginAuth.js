@@ -91,7 +91,7 @@ router.post('/auth/login', [
             success = true
             let userinfo = await login.findOne({ email }).select("-password")
             res.status(200).json({ success: true, token, id: user._id, userinfo: userinfo })
-            console.log(user, token, 'ttt')
+            // console.log(user, token, 'ttt')
 
         } catch (error) {
             res.status(500).send({ errors: "techincal error", success: false })
@@ -141,8 +141,8 @@ router.post('/auth/updateuserinfo', [
         updateuserinfo.userprofile =userprofile 
       }
         const user = await login.findByIdAndUpdate(req.user._id, { $set: updateuserinfo }, { new: true })
-        console.log(user);
-        console.log("helllll");
+        // console.log(user);
+        // console.log("helllll");
         res.json({message:"Changed info successfully",success:true})
     } catch (error) {
         console.error(error.message);

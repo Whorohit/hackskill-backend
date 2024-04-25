@@ -15,7 +15,8 @@ const PatientInfoSchema = mongoose.Schema({
         type:Array
     },
     IssuedDate:{
-        type:String
+        type:String,
+        default: Date.now
     },
     Hosptial:{
      type:String
@@ -23,7 +24,7 @@ const PatientInfoSchema = mongoose.Schema({
     lab:{
         type:String
     },
-    remarks:{
+    Remarks:{
         type:String
     }
 

@@ -9,6 +9,7 @@ app.use(express.json())
 const LoginSchema = require('./Modals/Loginmodal');
 const PatientInfo = require('./Modals/Patientinfo');
 const loginroute=require('./Route/LoginAuth')
+const patientroute=require('./Route/Patient')
 const { ATLAS_URI } = process.env;
 
 if (!ATLAS_URI) {
@@ -36,6 +37,8 @@ app.post('/auth/signup',loginroute)
 app.post('/api/updateuser/:loginid',loginroute)
 app.get('/api/getinfo',loginroute)
 // user  opertion route
+app.post('/api/addinfo',patientroute)
+app.get('/api/patientinfo',patientroute)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)})
