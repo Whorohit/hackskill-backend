@@ -19,16 +19,13 @@ if (!ATLAS_URI) {
   );
   process.exit(1);
 }
-const mongodbsend = () => {
-    mongoose.connect(ATLAS_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        socketTimeoutMS: 100000,
-    })
-        .then(() => console.log('MongoDB connected...'))
-        .catch(err => console.log(err));
-}
-mongodbsend();
+mongoose.connect(ATLAS_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  socketTimeoutMS: 100000,
+})
+.then(() => console.log('MongoDB connected...'))
+.catch(err => console.error('MongoDB connection error:', err));
 LoginSchema();
 PatientInfo();
 //  login route
