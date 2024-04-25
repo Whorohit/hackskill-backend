@@ -40,6 +40,7 @@ app.get('/api/getinfo',loginroute)
 app.post('/api/addinfo',patientroute)
 app.get('/api/patientinfo',patientroute)
 
+app.get("/", (req, res) => res.send("Express on Vercel"));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)})
 // app.post('/api/signup',routes)
